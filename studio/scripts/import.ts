@@ -96,7 +96,7 @@ async function main() {
       cause: toBlocks(r.cause),
       rule: toBlocks(r.rule),
       status: r.status,
-      source: {file: 'LESSONS.md', heading: r.source_heading},
+      source: {file: 'LESSONS.md'}, // заголовок-источник в публичный датасет не кладём
     }
     const saved = existing?._id
       ? await client.createOrReplace({_id: existing._id, ...doc})
