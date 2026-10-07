@@ -4,7 +4,7 @@ Short engineering notes, each one a symptom, a cause and a rule, from a browser-
 
 - `data/notes.ndjson`: the notes, one JSON object per line.
 - `studio/`: Sanity Studio, the schema (`note`, `area`, `tag`) and two scripts: `scripts/import.ts` loads the notes, `scripts/context-doc.ts` creates the Context document.
-- `web/`: the Astro site. Static build, reads the dataset at build time, published from the `gh-pages` branch.
+- `web/`: the Astro site. Static build, reads the dataset at build time, published from the `gh-pages` branch at https://works-on-my-box.github.io/sanity-field-notes/.
 - `.mcp.json` and `.agents/skills`: the Sanity MCP server and the Sanity agent skills that Claude Code used while this was built.
 
 Project `krbdaikf`, dataset `production` (public, read access without a token).
