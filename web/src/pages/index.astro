@@ -1,0 +1,22 @@
+---
+import { sanityClient } from 'sanity:client';
+import Base from '../layouts/Base.astro';
+import { AREAS_QUERY, NOTES_QUERY } from '../lib/queries';
+
+const areas = await sanityClient.fetch(AREAS_QUERY);
+const notes = await sanityClient.fetch(NOTES_QUERY);
+---
+<Base title="Index">
+  <p class="meta">{notes.length} current rules in {areas.filter((a) => a.count > 0).length} areas.</p>
+  {areas.filter((a) => a.count > 0).map((area) => (
+    <section>
+      <h2 id={area.slug}>{area.title} <span class="meta">({area.count})</span></h2>
+      {area.description && <p class="meta">{area.description}</p>}
+      <ul>
+        {notes.filter((n) => n.area?.slug === area.slug).map((n) => (
+          <li><a href={`/notes/${n.slug}/`}>{n.title}</a> <span class="meta">{n.observedAt}</span></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Base>
