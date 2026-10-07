@@ -11,6 +11,9 @@ const { PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET } = loadEnv(
 
 // Статическая сборка: контент читается из Content Lake на этапе build.
 export default defineConfig({
+  // Сайт живёт на GitHub Pages в подпути /sanity-field-notes.
+  site: 'https://works-on-my-box.github.io',
+  base: '/sanity-field-notes',
   integrations: [
     sanity({
       projectId: PUBLIC_SANITY_PROJECT_ID,

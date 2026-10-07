@@ -5,6 +5,8 @@ import { AREAS_QUERY, NOTES_QUERY } from '../lib/queries';
 
 const areas = await sanityClient.fetch(AREAS_QUERY);
 const notes = await sanityClient.fetch(NOTES_QUERY);
+// Подпуть GitHub Pages (BASE_URL) без завершающего слэша.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Base title="Index">
   <p class="meta">{notes.length} current rules in {areas.filter((a) => a.count > 0).length} areas.</p>
@@ -14,7 +16,7 @@ const notes = await sanityClient.fetch(NOTES_QUERY);
       {area.description && <p class="meta">{area.description}</p>}
       <ul>
         {notes.filter((n) => n.area?.slug === area.slug).map((n) => (
-          <li><a href={`/notes/${n.slug}/`}>{n.title}</a> <span class="meta">{n.observedAt}</span></li>
+          <li><a href={`${base}/notes/${n.slug}/`}>{n.title}</a> <span class="meta">{n.observedAt}</span></li>
         ))}
       </ul>
     </section>

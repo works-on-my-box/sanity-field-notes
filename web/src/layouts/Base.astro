@@ -1,5 +1,7 @@
 ---
 const { title } = Astro.props;
+// Подпуть GitHub Pages (BASE_URL) без завершающего слэша.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!doctype html>
 <html lang="en">
@@ -20,7 +22,7 @@ const { title } = Astro.props;
     </style>
   </head>
   <body>
-    <header><a href="/">Field notes</a> <span class="meta">— symptom → cause → rule, from an unattended browser-automation stack</span></header>
+    <header><a href={`${base}/`}>Field notes</a> <span class="meta">— symptom → cause → rule, from an unattended browser-automation stack</span></header>
     <main><slot /></main>
   </body>
 </html>

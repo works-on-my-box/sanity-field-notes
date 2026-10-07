@@ -10,25 +10,27 @@ export async function getStaticPaths() {
   return await sanityClient.fetch(SLUGS);
 }
 
+// Подпуть GitHub Pages (BASE_URL) без завершающего слэша.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { slug } = Astro.params;
 const note = await sanityClient.fetch(NOTE_QUERY, { slug });
-if (!note) return Astro.redirect('/');
+if (!note) return Astro.redirect(`${base}/`);
 ---
 <Base title={note.title}>
   <article class={note.status === 'superseded' ? 'superseded' : ''}>
     <h1>{note.title}</h1>
     <p class="meta">
-      {note.observedAt} · <a href={`/#${note.area?.slug}`}>{note.area?.title}</a>
+      {note.observedAt} · <a href={`${base}/#${note.area?.slug}`}>{note.area?.title}</a>
       {note.tags?.map((t) => <span class="tag">#{t.title}</span>)}
     </p>
     {note.status === 'superseded' && note.supersededBy && (
-      <p><strong>Superseded.</strong> The current rule is <a href={`/notes/${note.supersededBy.slug}/`}>{note.supersededBy.title}</a>.</p>
+      <p><strong>Superseded.</strong> The current rule is <a href={`${base}/notes/${note.supersededBy.slug}/`}>{note.supersededBy.title}</a>.</p>
     )}
     <section><h2>Symptom</h2><PortableText value={note.symptom} /></section>
     <section><h2>Cause</h2><PortableText value={note.cause} /></section>
     <section><h2>Rule</h2><PortableText value={note.rule} /></section>
     {note.supersedes && (
-      <p class="meta">Supersedes <a href={`/notes/${note.supersedes.slug}/`}>{note.supersedes.title}</a>.</p>
+      <p class="meta">Supersedes <a href={`${base}/notes/${note.supersedes.slug}/`}>{note.supersedes.title}</a>.</p>
     )}
   </article>
 </Base>
