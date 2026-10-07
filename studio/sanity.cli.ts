@@ -5,6 +5,7 @@ export default defineCliConfig({
     projectId: 'krbdaikf',
     dataset: 'production'
   },
+  studioHost: 'oleg-field-notes',
   deployment: {
     /**
      * Enable auto-updates for studios.
